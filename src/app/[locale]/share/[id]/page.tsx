@@ -14,18 +14,19 @@ type PageParams = {
 };
 
 type PageProps = {
-  params: PageParams;
+  params: Promise<PageParams>;
 };
 
 export async function generateMetadata(
   { params }: PageProps,
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
+  const { locale, id } = await params;
   const t = await getTranslations({
-    locale: params.locale,
+    locale,
     namespace: "share.metadata",
   });
-  const video = await fetchSharedVideo(params.id);
+  const video = await fetchSharedVideo(id);
   if (!video) {
     return {
       title: t("notFoundTitle"),
@@ -85,11 +86,12 @@ export async function generateMetadata(
 }
 
 export default async function SharePage({ params }: PageProps) {
+  const { locale, id } = await params;
   const t = await getTranslations({
-    locale: params.locale,
+    locale,
     namespace: "share",
   });
-  const shareId = params.id;
+  const shareId = id;
   const shareData = await fetchSharedVideo(shareId);
   if (!shareData) {
     return notFound();
