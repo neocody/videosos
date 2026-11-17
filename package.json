@@ -62,7 +62,7 @@
     "throttle-debounce": "^5.0.2",
     "uploadthing": "^7.4.4",
     "waveform-path": "^0.0.2",
-    "zod": "^3.24.1",
+    "zod": "^4.6.6",
     "zustand": "^5.0.2"
   },
   "devDependencies": {
